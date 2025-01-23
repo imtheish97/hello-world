@@ -9,7 +9,7 @@ pipeline {
         CLIENT_EMAIL = 'jenkins-service-account@lloyds-interview.iam.gserviceaccount.com'
         GCLOUD_PATH = '/Users/ismaelonilearan/Downloads/google-cloud-sdk/bin'
         TERRAFORM_PATH = '/opt/homebrew/bin'
-        KUBECTL_PATH = "~/.zshrc"
+        KUBECTL_PATH = "${HOME}/.kube"
         PATH = "${env.PATH}:${GCLOUD_PATH}:${TERRAFORM_PATH}:${KUBECTL_PATH}"
     }
 
