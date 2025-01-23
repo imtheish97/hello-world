@@ -10,7 +10,6 @@ pipeline {
         GCLOUD_PATH = '/Users/ismaelonilearan/Downloads/google-cloud-sdk/bin'
         TERRAFORM_PATH = '/opt/homebrew/bin'
         PATH = "${env.PATH}:${GCLOUD_PATH}:${TERRAFORM_PATH}"
-
     }
 
     stages {
@@ -20,7 +19,7 @@ pipeline {
             }
         }
         
-        stage('Gloud Auth') {
+        stage('GCloud Auth') {
             steps {
                 script {
                     withCredentials([file(credentialsId: 'gcloud-creds', variable: 'GCLOUDCREDS')]) {
@@ -32,7 +31,8 @@ pipeline {
                     }
                 }
             }
-        }    stages {
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
