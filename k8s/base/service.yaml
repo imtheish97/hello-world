@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ishTestService
+  name: ish-test-service
 spec:
   selector:
-    app: ishTest
+    app: ish-test
   ports:
     - protocol: TCP
       port: 80
