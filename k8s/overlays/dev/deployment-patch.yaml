@@ -6,14 +6,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ishTest
+      app: ishtest
   template:
     metadata:
       labels:
-        app: ishTest
+        app: ishtest
     spec:
       containers:
-      - name: ishTest
-        image: ishTest
+      - name: ishtest
+        image: ishtest
         ports:
         - containerPort: 8000
