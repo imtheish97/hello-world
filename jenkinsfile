@@ -10,7 +10,7 @@ pipeline {
         GCLOUD_PATH = '/Users/ismaelonilearan/Downloads/google-cloud-sdk/bin'
         TERRAFORM_PATH = '/opt/homebrew/bin'
         KUBECTL_PATH = "${HOME}/.kube"
-        ZSHRC_PATH = "${env.HOME}/.zshrc"
+        // ZSHRC_PATH = "${env.HOME}/.zshrc"
         PATH = "${env.PATH}:${GCLOUD_PATH}:${TERRAFORM_PATH}:${KUBECTL_PATH}"
     }
 
@@ -49,7 +49,8 @@ pipeline {
             steps {
                 script {
                     sh """
-                    source ${ZSHRC_PATH}
+                    source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+                    source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
                     kubectl config use-context your-kube-context
                     kustomize edit set image ${DOCKER_IMAGE}:${env.BUILD_ID}
                     kubectl apply -k ./k8s/overlays/${K8S_NAMESPACE}
