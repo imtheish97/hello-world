@@ -10,6 +10,7 @@ pipeline {
         GCLOUD_PATH = '/Users/ismaelonilearan/Downloads/google-cloud-sdk/bin'
         TERRAFORM_PATH = '/opt/homebrew/bin'
         KUBECTL_PATH = "${HOME}/.kube"
+        ZSHRC_PATH = "${env.HOME}/.zshrc"
         PATH = "${env.PATH}:${GCLOUD_PATH}:${TERRAFORM_PATH}:${KUBECTL_PATH}"
     }
 
