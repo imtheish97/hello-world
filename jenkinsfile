@@ -44,11 +44,21 @@ pipeline {
             }
         }
 
+        stage('Create Namespace') {
+            steps {
+                script {
+                    sh '''
+                        kubectl get namespace ${K8S_NAMESPACE} || kubectl create namespace ${K8S_NAMESPACE}
+                    '''
+                }
+            }
+        }
+
         stage('Deploy to Kubernetes') {
             steps {
                 script {
                     sh '''
-                    kubectl config use-context your-kube-context
+                    kubectl config use-context ${K8S_NAMESPACE}
                     kustomize edit set image ${DOCKER_IMAGE}:${env.BUILD_ID}
                     kubectl apply -k ./k8s/overlays/${K8S_NAMESPACE}
                     '''
