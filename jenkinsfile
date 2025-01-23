@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "ishTest"
+        K8S_NAMESPACE = "dev"
+        // K8S_DEPLOYMENT = "your-deployment"
+        CLOUDSDK_CORE_PROJECT = 'lloyds-interview'
+        CLIENT_EMAIL = 'jenkins-service-account@lloyds-interview.iam.gserviceaccount.com'
+        GCLOUD_PATH = '/Users/ismaelonilearan/Downloads/google-cloud-sdk/bin'
+        TERRAFORM_PATH = '/opt/homebrew/bin'
+        PATH = "${env.PATH}:${GCLOUD_PATH}:${TERRAFORM_PATH}"
+
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Gloud Auth') {
+            steps {
+                script {
+                    withCredentials([file(credentialsId: 'gcloud-creds', variable: 'GCLOUDCREDS')]) {
+                        sh '''
+                            gcloud version
+                            gcloud auth activate-service-account --key-file="$GCLOUDCREDS"
+                            gcloud compute zones list
+                        '''
+                    }
+                }
+            }
+        }    stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t ${DOCKER_IMAGE}:${env.BUILD_ID} ."
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    sh """
+                    kubectl config use-context your-kube-context
+                    kustomize edit set image ${DOCKER_IMAGE}:${env.BUILD_ID}
+                    kubectl apply -k ./k8s/overlays/${K8S_NAMESPACE}
+                    """
+                }
+            }
+        }
+    }
+}

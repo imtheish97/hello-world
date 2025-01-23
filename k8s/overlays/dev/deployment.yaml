@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ishTestDeployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ishTest
+  template:
+    metadata:
+      labels:
+        app: ishTest
+    spec:
+      containers:
+      - name: ishTest
+        image: ishTest
+        ports:
+        - containerPort: 8000
