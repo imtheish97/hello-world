@@ -48,7 +48,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    export KUBECONFIG="${HOME}/.kube/config"
+                    export PATH="${HOME}/.kube/config"
                     kubectl config use-context your-kube-context
                     kustomize edit set image ${DOCKER_IMAGE}:${env.BUILD_ID}
                     kubectl apply -k ./k8s/overlays/${K8S_NAMESPACE}
