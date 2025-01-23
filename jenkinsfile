@@ -58,7 +58,6 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    kubectl config use-context ${K8S_NAMESPACE}
                     kustomize edit set image ${DOCKER_IMAGE}:${env.BUILD_ID}
                     kubectl apply -k ./k8s/overlays/${K8S_NAMESPACE}
                     '''
