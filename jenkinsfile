@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "ishTest"
+        DOCKER_IMAGE = "ishtest"
         K8S_NAMESPACE = "dev"
         // K8S_DEPLOYMENT = "your-deployment"
         CLOUDSDK_CORE_PROJECT = 'lloyds-interview'
