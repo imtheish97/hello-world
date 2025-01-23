@@ -9,7 +9,8 @@ pipeline {
         CLIENT_EMAIL = 'jenkins-service-account@lloyds-interview.iam.gserviceaccount.com'
         GCLOUD_PATH = '/Users/ismaelonilearan/Downloads/google-cloud-sdk/bin'
         TERRAFORM_PATH = '/opt/homebrew/bin'
-        PATH = "${env.PATH}:${GCLOUD_PATH}:${TERRAFORM_PATH}"
+        KUBECTL_PATH = "${env.HOME}/.zshrc"
+        PATH = "${env.PATH}:${GCLOUD_PATH}:${TERRAFORM_PATH}:${KUBECTL_PATH}"
     }
 
     stages {
@@ -36,7 +37,10 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_IMAGE}:${env.BUILD_ID} ."
+                    sh '''
+
+                    docker build -t ${DOCKER_IMAGE}:${env.BUILD_ID} .
+                    '''
                 }
             }
         }
