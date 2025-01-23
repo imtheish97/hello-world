@@ -48,6 +48,7 @@ pipeline {
             steps {
                 script {
                     sh '''
+                    export PATH="/opt/homebrew/share/google-cloud-sdk/bin/kubectl"
                     kubectl config use-context your-kube-context
                     kustomize edit set image ${DOCKER_IMAGE}:${env.BUILD_ID}
                     kubectl apply -k ./k8s/overlays/${K8S_NAMESPACE}
