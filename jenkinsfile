@@ -58,7 +58,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    kustomize edit set image ${DOCKER_IMAGE}:${env.BUILD_ID}
+                    kustomize edit set image ${DOCKER_IMAGE}:\${BUILD_ID}
                     kubectl apply -k ./k8s/overlays/${K8S_NAMESPACE}
                     '''
                 }
