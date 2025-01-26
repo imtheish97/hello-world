@@ -63,7 +63,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    gcloud auth configure-docker
+                    gcloud auth configure-docker --quiet
                     kubectl apply -k ./k8s/overlays/${K8S_NAMESPACE}
                     '''
                 }
